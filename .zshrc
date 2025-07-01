@@ -90,11 +90,11 @@ alias gst="git status"
 alias gad="git add"
 alias glg="git log"
 alias psauxg="ps aux | grep -v grep | grep -i "
-alias watch="watch -d"
+# alias watch="watch -d"
 alias history="history -i" # history $start_line $end_line
 
 [ -f /usr/local/tmux-master/bin/tmux ] && alias tmux='/usr/local/tmux-master/bin/tmux -2u' || alias tmux="tmux -2 -u"
-[ -f /usr/local/zsh-master/bin/zsh ] && alias zsh='/usr/local/zsh-master/bin/zsh' || which zsh
+[ -f /world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh ] && alias zsh='/world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh' || which zsh
 
 export EDITOR=vim
 
@@ -130,7 +130,8 @@ ulimit -c unlimited
 command -v keychain > /dev/null && eval `keychain --eval id_rsa`
 
 CONNECT_IP=$(echo $SSH_CONNECTION | awk '{print $3}')
-PROMPT="%B%F{red}%n%f%K{blue}%F{white}@%f%k%F{magenta}${CONNECT_IP}%f:%F{green}%/%f:%b "
+# PROMPT="%B%F{red}%n%f%K{blue}%F{white}@%f%k%F{magenta}${CONNECT_IP}%f:%F{green}%/%f:%b "
+PROMPT="%F{magenta}${CONNECT_IP}%f:%F{green}%/%f:%b "
 RPROMPT='%B%F{yellow}%D{%H:%M:%S.%.}%f%b'
 
 #RPROMPT='%B%F{blue}%(?..%? )%(1j.[%j&] .)%f%F{yellow}%D{%H:%M:%S.%.}%f%b'
@@ -157,9 +158,9 @@ function precmd() {
     fi
 }
 
-export LANG=en_HK.UTF-8
-export LANGUAGE=en_HK:en
-export LC_ALL=en_US.UTF-8  #FIX input chinese garbled in mac tmux
+# export LANG=en_HK.UTF-8
+# export LANGUAGE=en_HK:en
+# export LC_ALL=en_US.UTF-8  #FIX input chinese garbled in mac tmux
 
 if [ -S $SSH_AUTH_SOCK ] && ! [ -h $SSH_AUTH_SOCK ]; then
     ln -sf $SSH_AUTH_SOCK ~/.ssh/ssh_auth_sock
@@ -169,7 +170,11 @@ fi
 # use -Wl,-rpath=xxx,-rpath-link=xxx -L -I代替
 #export LD_LIBRARY_PATH=/usr/lib/:/usr/lib64/:/usr/local/cuda/lib64/:/usr/lib64/cudnn/:/usr/lib64/cudnn-v3/:/usr/lib64/atlas:/usr/lib64/mpich/lib:/usr/local/lib
 #export CPLUS_INCLUDE_PATH=:/usr/include/mpich-x86_64/:/usr/local/cuda/include:/usr/local/cuda/samples/common/inc:/usr/local/include
-export PATH=~/bin/:/bin:/usr/bin:/usr/local/cuda/bin:/usr/local/bin:/usr/bin:/usr/local/sbin:/usr/sbin:/opt/ibutils/bin:/sbin:/usr/sbin/:/sbin:/usr/sbin/:/usr/lib64/mpich/bin:/usr/local/pssh-2.3.1/bin:/usr/local/node-v6.10.1/bin
+# export LD_LIBRARY_PATH=/usr/local/python-3.8.12/lib/
+# export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/usr/local/cuda-11.3/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
+export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/nvvm/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
+export LD_LIBRARY_PATH=/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/lib64
+
 export UV_THREADPOOL_SIZE=8
 export DMLC_INTERFACE=ib0
 
@@ -196,3 +201,4 @@ if [[ `tmux -V` == "tmux master" ]] && [[ `tmux ls` != "" ]]; then
         tmux bind-key '|' split-window -h -c "#{pane_current_path}"
     fi
 fi
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
