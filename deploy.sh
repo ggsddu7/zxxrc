@@ -28,3 +28,5 @@ rm -fr ~/.jupyter
 ln -fs ~/.vim/.jupyter ~/
 rm -fr ~/.config
 ln -fs ~/.vim/.config ~/
+rm -fr ~/.gdbinit
+ln -fs ~/.vim/.gdbinit ~/

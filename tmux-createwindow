@@ -1,0 +1,16 @@
+#!/bin/bash -f
+set -x
+if [ -f /usr/local/bin/tmux ] 
+then
+    tmux_bin=/usr/local/bin/tmux
+elif [ -f /usr/local/tmux-master/bin/tmux ]
+then
+    tmux_bin=/usr/local/tmux-master/bin/tmux
+else
+    tmux_bin=tmux
+fi
+
+current_window_idx=`$tmux_bin -2u list-window | grep "(active)$" | awk -F'[ :]' '{print $1}'`
+next_window_idx=`$tmux_bin list-window | awk -v c="$current_window_idx" -F'[ :]' '{arr[$1]++}END{while(c in arr) c+=1; print c}'`
+$tmux_bin new-window -c "#{pane_current_path}" -t $next_window_idx
+$tmux_bin rename-window "+"

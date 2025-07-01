@@ -54,15 +54,15 @@ bind _ split-window -v
 
 
 # status bar
-set-option -g status-utf8 on
+# set-option -g status-utf8 on
 
 # set-option -g status-left '#T |'
-set -g window-status-current-attr "bright|underscore|dim|italics|reverse"
+# set -g window-status-current-attr "bright|underscore|dim|italics|reverse"
 set-option -g status-right '%m-%d %R'
 set-option -g status-bg colour56
 set-option -g status-fg colour253
-set-window-option -g window-status-current-fg white
-set-window-option -g window-status-current-bg blue
+# set-window-option -g window-status-current-fg white
+# set-window-option -g window-status-current-bg blue
 
 set-option -g allow-rename off
 set-window-option -g automatic-rename off # auto name
@@ -84,14 +84,14 @@ set-option -g visual-activity on
 set-option -g visual-bell on
 setw -g mode-keys vi
 set-window-option -g mode-keys vi
-set-window-option -g utf8 on
+# set-window-option -g utf8 on
 #set-window-option -g mode-mouse on
-set-window-option -g mouse-utf8 on
+# set-window-option -g mouse-utf8 on
 set-window-option -g monitor-activity off
 set -g default-terminal "screen-256color"
 set-option -g base-index 0
 
 set-option -ga update-environment "SSH_AUTH_SOCK DISPLAY SSH_ASKPASS SSH_AGENT_PID SSH_CONNECTION WINDOWID XAUTHORITY"
 
-setw -g utf8 on
-set -g status-utf8 on
+# setw -g utf8 on
+# set -g status-utf8 on

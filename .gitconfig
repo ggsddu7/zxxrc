@@ -3,11 +3,11 @@
 [difftool]
 	prompt = No
 [difftool "vimdiff"]
-	path = /usr/local/vim-8.0.0599/bin/vimdiff
+	path = /bin/vimdiff
 [merge]
 	tool = vimdiff
 [mergetool "vimdiff"]
-	path = /usr/local/vim-8.0.0599/bin/vimdiff
+	path = /bin/vimdiff
 [mergetool]
 	prompt = false
 [color]

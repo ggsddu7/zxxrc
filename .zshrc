@@ -5,6 +5,7 @@ HISTFILE=~/.histfile
 HISTSIZE=10000
 SAVEHIST=10000
 setopt appendhistory autocd beep extendedglob notify HIST_IGNORE_DUPS SHARE_HISTORY INC_APPEND_HISTORY HIST_SAVE_NO_DUPS HIST_FIND_NO_DUPS EXTENDED_HISTORY HIST_EXPIRE_DUPS_FIRST histignorespace
+
 bindkey -v
 # End of lines configured by zsh-newuser-install
 eval $(dircolors -b)
@@ -60,14 +61,15 @@ bindkey -M vicmd '^K' vi-forward-word-end
 bindkey -M viins '^K' vi-forward-word-end
 bindkey -M viins "^v" vi-kill-eol
 bindkey -M viins "^D" kill-word
-bindkey -M vicmd '/' history-incremental-pattern-search-backward
-bindkey -M vicmd '?' history-incremental-pattern-search-forward
+# bindkey -M vicmd '/' history-incremental-pattern-search-backward
+# bindkey -M vicmd '?' history-incremental-pattern-search-forward
 bindkey -M viins '^R' history-incremental-pattern-search-backward
 bindkey -M viins '^S' history-incremental-pattern-search-forward
 bindkey "^P" vi-up-line-or-history
 bindkey "^N" vi-down-line-or-history
 
 alias vim="/usr/local/vim-8.x/bin/vim"
+alias diff="/world/data-gpu-16/zhangjiguo/third-parts/diffutils-3.10/bin/diff"
 alias vimdiff="/usr/local/vim-8.x/bin/vimdiff"
 alias ls="ls --color=auto --show-control-chars"
 alias less="less -r"
@@ -81,22 +83,27 @@ alias mv="mv -iv"
 alias ping="ping -n"
 alias rsync="rsync --no-perms -avzP"
 alias msh="mosh"
-command -v autossh > /dev/null && alias ssh="autossh -A" || alias ssh="ssh -A"
-alias pssh="pssh -t0 -P -x '-A -tt'"
+command -v autossh > /dev/null && alias ssh="autossh -t -A" || alias ssh="ssh -t -A"
+alias pssh="/usr/bin/pssh -t0 -P -x '-A -tt'"
 alias prsync='prsync -avzr -x "--no-perms"'
 alias gdf="git difftool"
 alias gck="git checkout"
-alias gst="git status"
+alias gst="git status -uno"
+alias gsta="git status"
 alias gad="git add"
 alias glg="git log"
 alias psauxg="ps aux | grep -v grep | grep -i "
 # alias watch="watch -d"
 alias history="history -i" # history $start_line $end_line
+alias gdb="/usr/local/gdb-8.3.1/bin/gdb"
+alias cmake="/usr/local/cmake-3.15.4/bin/cmake"
+alias wget="/world/data-gpu-16/zhangjiguo/third-parts/wget-1.21/bin/wget"
 
 [ -f /usr/local/tmux-master/bin/tmux ] && alias tmux='/usr/local/tmux-master/bin/tmux -2u' || alias tmux="tmux -2 -u"
 [ -f /world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh ] && alias zsh='/world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh' || which zsh
 
-export EDITOR=vim
+# export EDITOR=/usr/local/vim-8.x/bin/vim
+alias vi="vim"
 
 mesg n
 
@@ -125,7 +132,7 @@ alias 9='cd -9'
 
 alias d='dirs -v | head -10'
 
-ulimit -c unlimited
+ulimit -c 0
 
 command -v keychain > /dev/null && eval `keychain --eval id_rsa`
 
@@ -167,14 +174,18 @@ if [ -S $SSH_AUTH_SOCK ] && ! [ -h $SSH_AUTH_SOCK ]; then
     export SSH_AUTH_SOCK=~/.ssh/ssh_auth_sock
 fi
 
+export GOPATH=${HOME}/.go
+export GO111MODULE=on
+export GOPROXY=https://goproxy.cn,direct
+
 # use -Wl,-rpath=xxx,-rpath-link=xxx -L -I代替
-#export LD_LIBRARY_PATH=/usr/lib/:/usr/lib64/:/usr/local/cuda/lib64/:/usr/lib64/cudnn/:/usr/lib64/cudnn-v3/:/usr/lib64/atlas:/usr/lib64/mpich/lib:/usr/local/lib
+# export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:/usr/local/cudnn-v7.2-for-cuda-9.2/lib64:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/home/zhangjiguo/cuda-11.3.1/lib64/:/home/zhangjiguo/cudnn-11.3-linux-x64-v8.2.1.32/lib64:/home/zhangjiguo/TensorRT-8.0.3.4/lib
 #export CPLUS_INCLUDE_PATH=:/usr/include/mpich-x86_64/:/usr/local/cuda/include:/usr/local/cuda/samples/common/inc:/usr/local/include
 # export LD_LIBRARY_PATH=/usr/local/python-3.8.12/lib/
 # export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/usr/local/cuda-11.3/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
 export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/nvvm/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
 export LD_LIBRARY_PATH=/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/lib64
-
 export UV_THREADPOOL_SIZE=8
 export DMLC_INTERFACE=ib0
 

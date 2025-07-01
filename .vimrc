@@ -2,26 +2,27 @@ set nocompatible              " be iMproved, required
 filetype off                  " required
 
 " set the runtime path to include Vundle and initialize
-set rtp+=~/.vim/bundle/Vundle.vim
-call vundle#begin()
-Plugin 'Valloric/YouCompleteMe'
-Plugin 'kien/ctrlp.vim'
-Plugin 'godlygeek/tabular'
-Plugin 'vim-airline/vim-airline'
-Plugin 'vim-airline/vim-airline-themes'
-Plugin 'scrooloose/nerdcommenter'
-Plugin 'tpope/vim-fugitive'
-Plugin 'vim-scripts/bufexplorer.zip'
-Plugin 'tpope/vim-surround'
-Plugin 'klen/python-mode'
-"Plugin 'benmills/vimux'
-Plugin 'mileszs/ack.vim' " sudo yum install ack
-Plugin 'majutsushi/tagbar'
-"Plugin 'vim-scripts/EnhancedJumps'
-"Plugin 'vim-scripts/ingo-library'
-"Plugin 'vim-scripts/taglist.vim'
-"Plugin 'jiangmiao/auto-pairs'
-call vundle#end()            " required
+" set rtp+=~/.vim/bundle/Vundle.vim
+" call vundle#begin()
+" Plugin 'Valloric/YouCompleteMe'
+" Plugin 'kien/ctrlp.vim'
+" " Plugin 'godlygeek/tabular'
+" Plugin 'vim-airline/vim-airline'
+" Plugin 'vim-airline/vim-airline-themes'
+" " Plugin 'vim-scripts/bufexplorer.zip'
+" Plugin 'jlanzarotta/bufexplorer'
+" " Plugin 'tpope/vim-surround'
+" Plugin 'ken/python-mode'
+" " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
+" " Plugin 'benmills/vimux'
+" " Plugin 'mileszs/ack.vim' " sudo yum install ack
+" # Plugin 'majutsushi/tagbar'
+" Plugin 'Yggdroot/indentLine'
+" " Plugin 'vim-scripts/EnhancedJumps'
+" " Plugin 'vim-scripts/ingo-library'
+" " Plugin 'vim-scripts/taglist.vim'
+" " Plugin 'jiangmiao/auto-pairs'
+" call vundle#end()            " required
 filetype plugin indent on    " required
 
 let g:ycm_global_ycm_extra_conf = '/home/zhangjiguo/.ycm_extra_conf.py'
@@ -30,8 +31,8 @@ let g:ycm_min_num_identifier_candidate_chars = 2
 let g:ycm_autoclose_preview_window_after_insertion = 1
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_filepath_completion_use_working_dir = 1
-let g:ycm_disable_for_files_larger_than_kb = 50
-"let g:ycm_filetype_whitelist = { 'python': 1, 'cpp': 1, 'javascript': 1}
+let g:ycm_disable_for_files_larger_than_kb = 0
+" let g:ycm_filetype_whitelist = { 'python': 1, 'cpp': 1, 'go': 1}
 "let g:ycm_collect_identifiers_from_tags_files = 1
 "let g:ycm_seed_identifiers_with_syntax = 1
 let g:ycm_confirm_extra_conf = 0
@@ -39,9 +40,13 @@ let g:ycm_confirm_extra_conf = 0
 "let g:ycm_collect_identifiers_from_comments_and_strings = 1
 "let g:ycm_server_use_vim_stdout = 1
 let g:ycm_goto_buffer_command = 'new-or-existing-tab'
+let g:ycm_filetype_blacklist = {'cmake': 1}
+let g:ycm_filetype_specific_completion_to_disable = {"cmake": 1}
+
 nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
 nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
 nnoremap <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
+
 "let g:EclimCompletionMethod = 'omnifunc'
 "imap JJ  <c-x><c-f> "when file big, use vimcp to complete path
 
@@ -115,6 +120,7 @@ let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#show_buffers = 0
 let g:airline#extensions#tabline#show_tabs = 1
 let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
+let g:airline#highlighter#tabline#airline_tabhid = 1 " tab number
 "let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
 set laststatus=2
 "
@@ -147,7 +153,7 @@ let g:tagbar_autofocus = 1
 let g:tagbar_autoclose = 1
 
 let g:lasttab = 1
-nmap <C-H> :exe "tabn ".g:lasttab<CR>
+nmap <C-L> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
 "source ~/.vim/bundle/zjump.vim
@@ -156,3 +162,12 @@ au TabLeave * let g:lasttab = tabpagenr()
 set backspace=2
 set wildmenu wildmode=full 
 set wildchar=<Tab> wildcharm=<C-Z>
+
+let g:lasttab = 1
+nmap <C-T> :exe "tabn ".g:lasttab<CR>
+au TabLeave * let g:lasttab = tabpagenr()
+
+let g:pymode_options_max_line_length=100
+autocmd Filetype json let g:indentLine_setConceal = 0
+
+set wildignore+=*/tmp/*,*.so,*.swp,*.zip   
