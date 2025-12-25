@@ -68,17 +68,17 @@ bindkey -M viins '^S' history-incremental-pattern-search-forward
 bindkey "^P" vi-up-line-or-history
 bindkey "^N" vi-down-line-or-history
 
-alias vim="/usr/local/vim-8.x/bin/vim"
+alias vim="/world/data-gpu-16/zhangjiguo/third-parts/vim-v9.1.1962/bin/vim"
 alias diff="/world/data-gpu-16/zhangjiguo/third-parts/diffutils-3.10/bin/diff"
-alias vimdiff="/usr/local/vim-8.x/bin/vimdiff"
+alias vimdiff="/world/data-gpu-16/zhangjiguo/third-parts/vim-v9.1.1962/bin/vimdiff"
 alias ls="ls --color=auto --show-control-chars"
 alias less="less -r"
-alias rm="rm -vi"
+# alias rm="rm -vi"
 alias ll="ls -alh"
 alias l="ls -lh"
-alias cp="cp -vi"
+# alias cp="cp -vi"
 #alias grep='if [ ! -t 0 ]; then text=$(< /dev/stdin); fi; zgrep() {if [ ! -z "$text" ]; then content=$text; unset text; em=""; for x in $*; do [[ ${x} =~ ^-.*$ ]] && em="$em $x"; done; echo $em; echo "$content" | grep --color=auto $em $1 | grep --color=auto -v grep; else grep --color=auto $*; fi;}; zgrep'
-alias grep="grep --color=auto"
+alias grep="grep --color=auto -I"
 alias mv="mv -iv"
 alias ping="ping -n"
 alias rsync="rsync --no-perms -avzP"
@@ -102,7 +102,7 @@ alias wget="/world/data-gpu-16/zhangjiguo/third-parts/wget-1.21/bin/wget"
 [ -f /usr/local/tmux-master/bin/tmux ] && alias tmux='/usr/local/tmux-master/bin/tmux -2u' || alias tmux="tmux -2 -u"
 [ -f /world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh ] && alias zsh='/world/data-gpu-16/zhangjiguo/third-parts/zsh-5.9/bin/zsh' || which zsh
 
-# export EDITOR=/usr/local/vim-8.x/bin/vim
+export EDITOR=vim
 alias vi="vim"
 
 mesg n
@@ -180,12 +180,12 @@ export GOPROXY=https://goproxy.cn,direct
 
 # use -Wl,-rpath=xxx,-rpath-link=xxx -L -I代替
 # export LD_LIBRARY_PATH=/usr/local/cuda-9.2/lib64:/usr/local/cudnn-v7.2-for-cuda-9.2/lib64:$LD_LIBRARY_PATH
-export LD_LIBRARY_PATH=/home/zhangjiguo/cuda-11.3.1/lib64/:/home/zhangjiguo/cudnn-11.3-linux-x64-v8.2.1.32/lib64:/home/zhangjiguo/TensorRT-8.0.3.4/lib
+# export LD_LIBRARY_PATH=/world/data-gpu-16/cudas/cuda-11.3.1/lib64/:/home/zhangjiguo/cudnn-11.3-linux-x64-v8.2.1.32/lib64:/home/zhangjiguo/TensorRT-8.0.3.4/lib
 #export CPLUS_INCLUDE_PATH=:/usr/include/mpich-x86_64/:/usr/local/cuda/include:/usr/local/cuda/samples/common/inc:/usr/local/include
 # export LD_LIBRARY_PATH=/usr/local/python-3.8.12/lib/
 # export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/usr/local/cuda-11.3/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
-export PATH=/world/data-gpu-16/zhangjiguo/third-parts/cmake-3.15.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/bin:/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/nvvm/bin:/world/data-gpu-16/zhangjiguo/third-parts/gcc-9.4/bin/:/home/zhangjiguo/bin1/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin:/usr/lib64/mpich/bin
-export LD_LIBRARY_PATH=/world/data-gpu-16/zhangjiguo/third-parts/cuda-12.4/lib64
+export PATH=~/.nvm/versions/node/v24.11.1/bin:/world/data-gpu-16/cmakes/cmake-3.15.4/bin:/world/data-gpu-16/cudas/cuda-11.3.1/bin:/world/data-gpu-16/cudas/cuda-11.3.1/nvvm/bin:/world/data-gpu-16/gccs/gcc-9.4/bin/:/bin:/usr/bin:/usr/local/bin:/usr/local/sbin:/sbin:/usr/sbin
+export LD_LIBRARY_PATH=/world/data-gpu-16/cudas/cuda-11.3.1/lib64
 export UV_THREADPOOL_SIZE=8
 export DMLC_INTERFACE=ib0
 
@@ -213,3 +213,4 @@ if [[ `tmux -V` == "tmux master" ]] && [[ `tmux ls` != "" ]]; then
     fi
 fi
 [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+unset MAILCHECK

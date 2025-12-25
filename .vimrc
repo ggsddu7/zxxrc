@@ -1,62 +1,15 @@
 set nocompatible              " be iMproved, required
 filetype off                  " required
-
-" set the runtime path to include Vundle and initialize
-" set rtp+=~/.vim/bundle/Vundle.vim
-" call vundle#begin()
-" Plugin 'Valloric/YouCompleteMe'
-" Plugin 'kien/ctrlp.vim'
-" " Plugin 'godlygeek/tabular'
-" Plugin 'vim-airline/vim-airline'
-" Plugin 'vim-airline/vim-airline-themes'
-" " Plugin 'vim-scripts/bufexplorer.zip'
-" Plugin 'jlanzarotta/bufexplorer'
-" " Plugin 'tpope/vim-surround'
-" Plugin 'ken/python-mode'
-" " Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
-" " Plugin 'benmills/vimux'
-" " Plugin 'mileszs/ack.vim' " sudo yum install ack
-" # Plugin 'majutsushi/tagbar'
-" Plugin 'Yggdroot/indentLine'
-" " Plugin 'vim-scripts/EnhancedJumps'
-" " Plugin 'vim-scripts/ingo-library'
-" " Plugin 'vim-scripts/taglist.vim'
-" " Plugin 'jiangmiao/auto-pairs'
-" call vundle#end()            " required
 filetype plugin indent on    " required
-
-let g:ycm_global_ycm_extra_conf = '/home/zhangjiguo/.ycm_extra_conf.py'
-let g:ycm_min_num_of_chars_for_completion = 3
-let g:ycm_min_num_identifier_candidate_chars = 2
-let g:ycm_autoclose_preview_window_after_insertion = 1
-let g:ycm_autoclose_preview_window_after_completion = 1
-let g:ycm_filepath_completion_use_working_dir = 1
-let g:ycm_disable_for_files_larger_than_kb = 0
-" let g:ycm_filetype_whitelist = { 'python': 1, 'cpp': 1, 'go': 1}
-"let g:ycm_collect_identifiers_from_tags_files = 1
-"let g:ycm_seed_identifiers_with_syntax = 1
-let g:ycm_confirm_extra_conf = 0
-"let g:ycm_complete_in_comments = 1
-"let g:ycm_collect_identifiers_from_comments_and_strings = 1
-"let g:ycm_server_use_vim_stdout = 1
-let g:ycm_goto_buffer_command = 'new-or-existing-tab'
-let g:ycm_filetype_blacklist = {'cmake': 1}
-let g:ycm_filetype_specific_completion_to_disable = {"cmake": 1}
-
-nnoremap <leader>gc :YcmCompleter GoToDeclaration<CR>
-nnoremap <leader>gf :YcmCompleter GoToDefinition<CR>
-nnoremap <C-]> :YcmCompleter GoToDefinitionElseDeclaration<CR>
-
-"let g:EclimCompletionMethod = 'omnifunc'
-"imap JJ  <c-x><c-f> "when file big, use vimcp to complete path
+call plug#begin()
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+call plug#end()
 
 set completeopt=longest,menu
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
 
 " hit enter to cancel searched highlight
 noremap <CR> :nohlsearch<CR>
-noremap <C-N> :Ack <cword><CR>
 
 map Q <Nop>
 noremap m gt
@@ -83,10 +36,6 @@ map <C-_> \cc <Esc>
 imap <C-_> <Esc>\cc <Esc>
 map <C-\> \cu<Esc>
 imap <C-\> <Esc>\cu<Esc>
-set pastetoggle=<F6>
-"noremap <F5> :silent! e!<CR>
-"vmap <F5> : w!/tmp/x1<CR>
-"vmap <F6> : r /tmp/x1<CR>
 nmap <F7> :reg<CR>
 map <F9> <Esc>:tabm
 imap <F9> <Esc>:tabm
@@ -101,48 +50,20 @@ imap <C-u> : <Esc>c0
 
 syntax enable
 syntax on
-autocmd FileType c,cpp,py,cu setlocal shiftwidth=4 "| set expandtab
+" autocmd FileType c,cpp,py,cu setlocal 
+set shiftwidth=4
+set expandtab
 
 "set nu
 set cursorcolumn
 set cursorline
 set smarttab
-set foldmethod=marker
 set showmode
 set showcmd
 set autoread
-"let g:Powerline_symbols = 'fancy'
-"let g:Powerline_stl_path_style = 'full'
-"let g:airline_powerline_fonts=1
-let g:airline_theme="simple"
-let g:airline_section_c = '%F'
-let g:airline#extensions#tabline#enabled = 1
-let g:airline#extensions#tabline#show_buffers = 0
-let g:airline#extensions#tabline#show_tabs = 1
-let g:airline#extensions#tabline#tab_nr_type = 1 " tab number
-let g:airline#highlighter#tabline#airline_tabhid = 1 " tab number
-"let g:airline#extensions#tabline#tab_nr_type = 2 " splits and tab number
 set laststatus=2
 "
 colorscheme molokai
-
-let g:pymode_warnings = 0
-let g:pymode_indent = 1
-let g:pymode_folding = 0
-let g:pymode_breakpoint = 0
-let g:pymode_lint_message = 1
-let g:pymode_lint_cwindow = 0
-let g:pymode_rope = 0
-"let g:pymode_rope_completion = 0
-"let g:pymode_rope_complete_on_dot = 0
-let g:pymode_syntax_all = 1
-let g:pymode_syntax_indent_errors = g:pymode_syntax_all
-let g:pymode_syntax_space_errors = g:pymode_syntax_all
-let g:pymode_run = 0
-
-let g:airline_powerline_fonts=0
-
-let g:ackhighlight = 1
 
 set incsearch
 set hlsearch
@@ -156,9 +77,6 @@ let g:lasttab = 1
 nmap <C-L> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-"source ~/.vim/bundle/zjump.vim
-"nmap <C-[> :call NCO()<CR>
-
 set backspace=2
 set wildmenu wildmode=full 
 set wildchar=<Tab> wildcharm=<C-Z>
@@ -167,7 +85,76 @@ let g:lasttab = 1
 nmap <C-T> :exe "tabn ".g:lasttab<CR>
 au TabLeave * let g:lasttab = tabpagenr()
 
-let g:pymode_options_max_line_length=100
 autocmd Filetype json let g:indentLine_setConceal = 0
 
 set wildignore+=*/tmp/*,*.so,*.swp,*.zip   
+
+hi CocMenuSel ctermbg=red ctermfg=white guibg=#1e1e1e guifg=#9fcf8c
+
+" 自动检测粘贴模式
+let &t_SI .= "\<Esc>[?2004h"
+let &t_EI .= "\<Esc>[?2004l"
+inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
+function! XTermPasteBegin()
+    set pastetoggle=<Esc>[201~
+    set paste
+    return ""
+endfunction
+
+" 当 pastetoggle 关闭 paste 模式时退出插入模式
+" augroup auto_exit_paste
+"     autocmd!
+"     autocmd OptionSet paste if !v:option_new | call feedkeys("\<C-c>`[jv`]9>", 'n') | endif
+" augroup END
+
+function! AdjustPasteIndent()
+    " 1. 先退出插入模式
+    if mode() =~# '[iR]'  " 如果是插入或替换模式
+        call feedkeys("\<C-c>", 'n')
+    endif
+    
+    " 2. 等待模式切换完成
+    call timer_start(10, {-> s:DoIndentAdjustment()})
+endfunction
+
+function! s:DoIndentAdjustment()
+    " 3. 获取粘贴区域的开始和结束位置
+    let start_line = line("'[")  " 修改开始行
+    let end_line = line("']")    " 修改结束行
+    
+    " 4. 检查是否有有效的修改区域
+    if start_line == 0 || end_line == 0 || start_line >= end_line
+        echo "没有有效的粘贴区域"
+        return
+    endif
+    
+    " 5. 获取第一行的缩进量
+    let first_line = getline(start_line)
+    let indent_amount = len(matchstr(first_line, '^\s*'))  " 计算前导空格数
+    
+    " 6. 如果第一行没有缩进，则不需要调整
+    if indent_amount == 0
+        echo "第一行没有缩进，保持不变"
+        return
+    endif
+    
+    " 7. 从第二行开始应用相同的缩进
+    let indent_str = repeat(' ', indent_amount)
+    
+    for line_num in range(start_line + 1, end_line)
+        let current_line = getline(line_num)
+        " 移除现有缩进，添加新的缩进
+        let new_line = indent_str . current_line
+        call setline(line_num, new_line)
+    endfor
+    
+    " 8. 反馈信息
+    let adjusted_lines = end_line - start_line
+    echo "已调整 " . adjusted_lines . " 行的缩进（" . indent_amount . " 空格）"
+    call cursor(start_line, indent_amount+1)
+endfunction
+
+augroup auto_exit_paste
+    autocmd!
+    autocmd OptionSet paste if !v:option_new | call AdjustPasteIndent() | endif
+augroup END
