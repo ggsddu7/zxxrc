@@ -125,6 +125,7 @@ function! s:DoIndentAdjustment_v2()
     let end_line = line("']")    " 修改结束行
     " 4. 检查是否有有效的修改区域
     if start_line == 0 || end_line == 0 || start_line >= end_line
+        call feedkeys("a", 'n')
         echo "没有有效的粘贴区域"
         return
     endif
