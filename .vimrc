@@ -129,24 +129,29 @@ function! s:DoIndentAdjustment_v2()
         return
     endif
     let indent_amount = 100
+    let indents = ""
+    let insert_amount = g:before_paste.col - 1
+    let indent_str = repeat(' ', insert_amount)
+    let first_line = substitute(getline(start_line), '\s\+$', '', '')
+    call setline(start_line, first_line[insert_amount:])
     for line_num in range(start_line, end_line)
         let current_line = getline(line_num)
         let current_line_indent_amount = len(matchstr(current_line, '^\s*'))  " 计算前导空格数
+        let indents = indents . current_line_indent_amount . '|'
+        if len(substitute(current_line, '\s', '', '')) == 0
+            continue
+        endif
         if current_line_indent_amount < indent_amount
             let indent_amount = current_line_indent_amount
         endif
     endfor
-    let insert_amount = g:before_paste.col - 1
-    let indent_str = repeat(' ', insert_amount)
-    let first_line = substitute(getline(start_line), '\s\+$', '', '')
-    call setline(start_line, first_line[indent_amount:])
-    for line_num in range(start_line+1, end_line)
+    for line_num in range(start_line, end_line)
         let current_line = substitute(getline(line_num), '\s\+$', '', '')
         call setline(line_num, indent_str . current_line[indent_amount:])
     endfor
     " 8. 反馈信息
     let adjusted_lines = end_line - start_line + 1
-    echo "已调整 " . adjusted_lines . " 行的缩进（插入:" . insert_amount . " 移除:" . indent_amount . "）空格"
+    echo "已调整 " . adjusted_lines . " 行的缩进（移除:" . indent_amount . " 移除:" . insert_amount . "）空格 " . indents
     call cursor(start_line, insert_amount+1)
 endfunction
 
