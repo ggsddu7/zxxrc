@@ -151,7 +151,7 @@ function! s:DoIndentAdjustment_v2()
     endfor
     " 8. 反馈信息
     let adjusted_lines = end_line - start_line + 1
-    echo "已调整 " . adjusted_lines . " 行的缩进（移除:" . indent_amount . " 移除:" . insert_amount . "）空格 " . indents
+    echo "已调整 " . adjusted_lines . " 行的缩进（移除:" . indent_amount . " 插入:" . insert_amount . "）空格 " . indents
     call cursor(start_line, insert_amount+1)
 endfunction
 
