@@ -97,6 +97,7 @@ let &t_EI .= "\<Esc>[?2004l"
 inoremap <special> <expr> <Esc>[200~ XTermPasteBegin()
 function! XTermPasteBegin()
     set pastetoggle=<Esc>[201~
+    let g:before_paste = {'line': line('.'), 'col': col('.')}
     set paste
     return ""
 endfunction
@@ -114,7 +115,39 @@ function! AdjustPasteIndent()
     endif
     
     " 2. 等待模式切换完成
-    call timer_start(10, {-> s:DoIndentAdjustment()})
+    call timer_start(10, {-> s:DoIndentAdjustment_v2()})
+endfunction
+
+" 从尾部选择到第一行第一列
+function! s:DoIndentAdjustment_v2()
+    " 3. 获取粘贴区域的开始和结束位置
+    let start_line = line("'[")  " 修改开始行
+    let end_line = line("']")    " 修改结束行
+    " 4. 检查是否有有效的修改区域
+    if start_line == 0 || end_line == 0 || start_line >= end_line
+        echo "没有有效的粘贴区域"
+        return
+    endif
+    let indent_amount = 100
+    for line_num in range(start_line, end_line)
+        let current_line = getline(line_num)
+        let current_line_indent_amount = len(matchstr(current_line, '^\s*'))  " 计算前导空格数
+        if current_line_indent_amount < indent_amount
+            let indent_amount = current_line_indent_amount
+        endif
+    endfor
+    let insert_amount = g:before_paste.col - 1
+    let indent_str = repeat(' ', insert_amount)
+    let first_line = substitute(getline(start_line), '\s\+$', '', '')
+    call setline(start_line, first_line[indent_amount:])
+    for line_num in range(start_line+1, end_line)
+        let current_line = substitute(getline(line_num), '\s\+$', '', '')
+        call setline(line_num, indent_str . current_line[indent_amount:])
+    endfor
+    " 8. 反馈信息
+    let adjusted_lines = end_line - start_line + 1
+    echo "已调整 " . adjusted_lines . " 行的缩进（插入:" . insert_amount . " 移除:" . indent_amount . "）空格"
+    call cursor(start_line, insert_amount+1)
 endfunction
 
 function! s:DoIndentAdjustment()
