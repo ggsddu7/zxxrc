@@ -109,6 +109,12 @@ endfunction
 " augroup END
 
 function! AdjustPasteIndent()
+    if coc#pum#visible()
+        call coc#pum#cancel()
+        echo "补全窗口已关闭"
+    else
+        echo "补全窗口未打开"
+    endif
     " 1. 先退出插入模式
     if mode() =~# '[iR]'  " 如果是插入或替换模式
         call feedkeys("\<C-c>", 'n')
@@ -123,6 +129,11 @@ function! s:DoIndentAdjustment_v2()
     " 3. 获取粘贴区域的开始和结束位置
     let start_line = line("'[")  " 修改开始行
     let end_line = line("']")    " 修改结束行
+    " let xxx = ""
+    " for line_num in range(start_line, end_line)
+    "     let current_line = getline(line_num)
+    "     let xxx = xxx . "|" . current_line
+    " echo xxx . "#" . end_line . "-" . start_line . "|" . start_line >= end_line
     " 4. 检查是否有有效的修改区域
     if start_line == 0 || end_line == 0 || start_line >= end_line
         call feedkeys("a", 'n')
@@ -197,3 +208,9 @@ augroup auto_exit_paste
     autocmd!
     autocmd OptionSet paste if !v:option_new | call AdjustPasteIndent() | endif
 augroup END
+
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
